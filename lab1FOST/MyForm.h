@@ -213,10 +213,12 @@ namespace lab1FOST {
         System::Windows::Forms::DataVisualization::Charting::Legend^ legend = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
 
         this->chart1->ChartAreas["ChartArea1"]->AxisY->Interval = 1;
+        this->chart1->ChartAreas["ChartArea1"]->AxisY2->Minimum = 0;
         this->chart1->ChartAreas["ChartArea1"]->AxisY->Minimum = 0;
         this->chart1->ChartAreas["ChartArea1"]->AxisY->Maximum = max;
-        this->chart1->ChartAreas["ChartArea1"]->AxisX->Interval = max / 10;
+        this->chart1->ChartAreas["ChartArea1"]->AxisX->Interval = 1;
         this->chart1->ChartAreas["ChartArea1"]->AxisX->Minimum = 0;
+        this->chart1->ChartAreas["ChartArea1"]->AxisX2->Minimum = 0;
         this->chart1->ChartAreas["ChartArea1"]->AxisX->Maximum = max;
         this->chart1->ChartAreas["ChartArea1"]->Position->Width = 100;
         this->chart1->ChartAreas["ChartArea1"]->Position->Height = 100;
@@ -270,9 +272,18 @@ namespace lab1FOST {
         else {
             double speedX = speed * cos(angleRad);
             double speedY = speed * sin(angleRad);
+
+            double prevX = 0;
+            double prevY = 0;
+            double prevSpeedX = speedX;
+            double prevSpeedY = speedY;
+            f1->Add(0, 0);
+
             while (isFall == false) {
-                double x = speedX * weight / k * (1 - exp((-k / weight) * t));
-                double y = weight / k * ((speedY + 10 * weight / k) * (1 - exp(-1 * k * t / weight)) - 10 * t);
+                double currentSpeedX = prevSpeedX - t * (k * prevSpeedX * prevSpeedX / 10);
+                double currentSpeedY = prevSpeedY - t * (10 + k * prevSpeedY * prevSpeedY / 10);
+                double x = prevX + currentSpeedX * t;
+                double y = prevY + currentSpeedY * t;
 
                 if (f1->ContainsKey(x) == false) {
                     f1->Add(x, y);
@@ -280,6 +291,10 @@ namespace lab1FOST {
                 if (t > 1) {
                     isFall = y < 0;
                 }
+                prevX = x;
+                prevY = y;
+                prevSpeedX = currentSpeedX;
+                prevSpeedY = currentSpeedY;
                 t += 0.01;
             }
             name = System::String::Format(String::Concat(Convert::ToString(speed), ":", Convert::ToString(angle), ":", Convert::ToString(k)));
