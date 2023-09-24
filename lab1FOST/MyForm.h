@@ -256,49 +256,34 @@ namespace lab1FOST {
         int weight = 1;
 
         double t = 0;
-        if (k <= 0) {
-            while (isFall == false) {
-                double x = speed * cos(angleRad) * t;
-                double y = speed * sin(angleRad) * t - 10 * t * t / 2;
+        double speedX = speed * cos(angleRad);
+        double speedY = speed * sin(angleRad);
 
+        double prevX = 0;
+        double prevY = 0;
+        double prevSpeedX = speedX;
+        double prevSpeedY = speedY;
+        f1->Add(0, 0);
+
+        while (isFall == false) {
+            double currentSpeedX = prevSpeedX - t * (k * prevSpeedX * prevSpeedX / 10);
+            double currentSpeedY = prevSpeedY - t * (10 + k * prevSpeedY * prevSpeedY / 10);
+            double x = prevX + currentSpeedX * t;
+            double y = prevY + currentSpeedY * t;
+
+            if (f1->ContainsKey(x) == false) {
                 f1->Add(x, y);
-                t += 0.01;
-                if (t > 1) {
-                    isFall = y < 0;
-                }
             }
-            name = System::String::Format(String::Concat(Convert::ToString(speed), ":", Convert::ToString(angle)));
-        }
-        else {
-            double speedX = speed * cos(angleRad);
-            double speedY = speed * sin(angleRad);
-
-            double prevX = 0;
-            double prevY = 0;
-            double prevSpeedX = speedX;
-            double prevSpeedY = speedY;
-            f1->Add(0, 0);
-
-            while (isFall == false) {
-                double currentSpeedX = prevSpeedX - t * (k * prevSpeedX * prevSpeedX / 10);
-                double currentSpeedY = prevSpeedY - t * (10 + k * prevSpeedY * prevSpeedY / 10);
-                double x = prevX + currentSpeedX * t;
-                double y = prevY + currentSpeedY * t;
-
-                if (f1->ContainsKey(x) == false) {
-                    f1->Add(x, y);
-                }
-                if (t > 1) {
-                    isFall = y < 0;
-                }
-                prevX = x;
-                prevY = y;
-                prevSpeedX = currentSpeedX;
-                prevSpeedY = currentSpeedY;
-                t += 0.01;
+            if (t > 1) {
+                isFall = y < 0;
             }
-            name = System::String::Format(String::Concat(Convert::ToString(speed), ":", Convert::ToString(angle), ":", Convert::ToString(k)));
+            prevX = x;
+            prevY = y;
+            prevSpeedX = currentSpeedX;
+            prevSpeedY = currentSpeedY;
+            t += 0.01;
         }
+        name = System::String::Format(String::Concat(Convert::ToString(speed), ":", Convert::ToString(angle), ":", Convert::ToString(k)));
 
         int red = rand() % 100 + 155;
         int green = rand() % 100 + 155;
