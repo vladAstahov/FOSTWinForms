@@ -41,13 +41,14 @@ namespace lab1FOST {
     private: System::Windows::Forms::DataVisualization::Charting::Chart^ chart1;
     private: System::Windows::Forms::Button^ button1;
     private: System::Windows::Forms::MaskedTextBox^ maskedTextBox1;
-    private: System::Windows::Forms::MaskedTextBox^ maskedTextBox2;
+
     private: System::Windows::Forms::Label^ label1;
-    private: System::Windows::Forms::Label^ label2;
+
 
 
     private: System::Windows::Forms::Label^ label4;
     private: System::Windows::Forms::Button^ button2;
+    private: System::Windows::Forms::Label^ label3;
 
 
 
@@ -74,11 +75,10 @@ namespace lab1FOST {
             this->chart1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Chart());
             this->button1 = (gcnew System::Windows::Forms::Button());
             this->maskedTextBox1 = (gcnew System::Windows::Forms::MaskedTextBox());
-            this->maskedTextBox2 = (gcnew System::Windows::Forms::MaskedTextBox());
             this->label1 = (gcnew System::Windows::Forms::Label());
-            this->label2 = (gcnew System::Windows::Forms::Label());
             this->label4 = (gcnew System::Windows::Forms::Label());
             this->button2 = (gcnew System::Windows::Forms::Button());
+            this->label3 = (gcnew System::Windows::Forms::Label());
             (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->chart1))->BeginInit();
             this->SuspendLayout();
             // 
@@ -108,11 +108,10 @@ namespace lab1FOST {
             this->chart1->Size = System::Drawing::Size(893, 307);
             this->chart1->TabIndex = 0;
             this->chart1->Text = L"chart1";
-            this->chart1->Click += gcnew System::EventHandler(this, &MyForm::chart1_Click);
             // 
             // button1
             // 
-            this->button1->Location = System::Drawing::Point(235, 336);
+            this->button1->Location = System::Drawing::Point(133, 336);
             this->button1->Name = L"button1";
             this->button1->Size = System::Drawing::Size(151, 34);
             this->button1->TabIndex = 1;
@@ -129,16 +128,6 @@ namespace lab1FOST {
             this->maskedTextBox1->TabIndex = 2;
             this->maskedTextBox1->ValidatingType = System::Int32::typeid;
             // 
-            // maskedTextBox2
-            // 
-            this->maskedTextBox2->Location = System::Drawing::Point(129, 344);
-            this->maskedTextBox2->Mask = L"00000";
-            this->maskedTextBox2->Name = L"maskedTextBox2";
-            this->maskedTextBox2->Size = System::Drawing::Size(100, 20);
-            this->maskedTextBox2->TabIndex = 3;
-            this->maskedTextBox2->ValidatingType = System::Int32::typeid;
-            this->maskedTextBox2->MaskInputRejected += gcnew System::Windows::Forms::MaskInputRejectedEventHandler(this, &MyForm::maskedTextBox2_MaskInputRejected);
-            // 
             // label1
             // 
             this->label1->AutoSize = true;
@@ -148,16 +137,6 @@ namespace lab1FOST {
             this->label1->TabIndex = 4;
             this->label1->Text = L"Высота";
             this->label1->Click += gcnew System::EventHandler(this, &MyForm::label1_Click);
-            // 
-            // label2
-            // 
-            this->label2->AutoSize = true;
-            this->label2->Location = System::Drawing::Point(126, 328);
-            this->label2->Name = L"label2";
-            this->label2->Size = System::Drawing::Size(55, 13);
-            this->label2->TabIndex = 5;
-            this->label2->Text = L"Скорость";
-            this->label2->Click += gcnew System::EventHandler(this, &MyForm::label2_Click);
             // 
             // label4
             // 
@@ -169,7 +148,7 @@ namespace lab1FOST {
             // 
             // button2
             // 
-            this->button2->Location = System::Drawing::Point(392, 336);
+            this->button2->Location = System::Drawing::Point(290, 336);
             this->button2->Name = L"button2";
             this->button2->Size = System::Drawing::Size(151, 34);
             this->button2->TabIndex = 9;
@@ -177,16 +156,26 @@ namespace lab1FOST {
             this->button2->UseVisualStyleBackColor = true;
             this->button2->Click += gcnew System::EventHandler(this, &MyForm::button2_Click);
             // 
+            // label3
+            // 
+            this->label3->AutoSize = true;
+            this->label3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+                static_cast<System::Byte>(204)));
+            this->label3->Location = System::Drawing::Point(457, 344);
+            this->label3->Name = L"label3";
+            this->label3->Size = System::Drawing::Size(70, 25);
+            this->label3->TabIndex = 10;
+            this->label3->Text = L"";
+            // 
             // MyForm
             // 
             this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
             this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
             this->ClientSize = System::Drawing::Size(931, 386);
+            this->Controls->Add(this->label3);
             this->Controls->Add(this->button2);
             this->Controls->Add(this->label4);
-            this->Controls->Add(this->label2);
             this->Controls->Add(this->label1);
-            this->Controls->Add(this->maskedTextBox2);
             this->Controls->Add(this->maskedTextBox1);
             this->Controls->Add(this->button1);
             this->Controls->Add(this->chart1);
@@ -235,11 +224,12 @@ namespace lab1FOST {
         Dictionary <double, double>^ f2 = gcnew Dictionary<double, double>();
         double prevSpeed = speed;
         double currHeight = 0;
-        double T = 2;
+        double T = 0.2;
         bool isEnd = false;
         double t = 0;
         
         int sameSpeedCount = 0;
+        int tSameSpeed = -1;
 
         f1->Add(t, speed);
         while (isEnd == false) {
@@ -252,10 +242,17 @@ namespace lab1FOST {
                 f2->Add(t, newHeight);
             }
             if (t > 1) {
-                if (currSpeed - prevSpeed < 0.1) {
+                if (currSpeed == prevSpeed) {
                     sameSpeedCount++;
+                    if (tSameSpeed == -1) {
+                        tSameSpeed = t - T;
+                    }
+                }
+                else {
+                    tSameSpeed = -1;
                 }
                 isEnd = sameSpeedCount > 10;
+
             }
             prevSpeed = currSpeed;
             currHeight = newHeight;
@@ -264,23 +261,23 @@ namespace lab1FOST {
 
         System::String^ nameS = System::String::Format(String::Concat(Convert::ToString(speed), ":", Convert::ToString(flightHeight), ":", "speed"));
         System::String^ nameH = System::String::Format(String::Concat(Convert::ToString(speed), ":", Convert::ToString(flightHeight), ":", "height"));
-        
+        this->label3->Text = System::String::Concat("Постоянная скорость в", Convert::ToString(tSameSpeed));
+
         this->drawGrafic(this->chart1, "ChartArea1", f1, color, 2, nameS, nameS, prevSpeed, t);
         this->drawGrafic(this->chart1, "ChartArea2", f2, color, 2, nameH, nameH, currHeight, t);
     }
     private: System::Void button1_Click_1(System::Object^ sender, System::EventArgs^ e) {
         using namespace System::Drawing::Drawing2D;
         using namespace System::Windows::Forms::DataVisualization::Charting;
-        double speed = Convert::ToDouble(this->maskedTextBox2->Text);
+        double speed = 0;
         int height = Convert::ToInt32(this->maskedTextBox1->Text);
         
-        double PERSON_WEIGHT = 50;
-        double PERSON_HEIGHT = 1.65;
-        double HALF_GIRTH = 0.35;
-        double C = 1.22;
+        double PERSON_WEIGHT = 65;
+        double C = 1.33;
         double RO = 1.29;
+        double R = 2;
 
-        double K = 0.5 * C * PERSON_HEIGHT * HALF_GIRTH * RO;
+        double K = 0.5 * 3.14159265 * R * R * C * RO;
 
         int red = rand() % 100 + 155;
         int green = rand() % 100 + 155;
@@ -300,7 +297,5 @@ namespace lab1FOST {
     }
     private: System::Void maskedTextBox2_MaskInputRejected(System::Object^ sender, System::Windows::Forms::MaskInputRejectedEventArgs^ e) {
     }
-private: System::Void chart1_Click(System::Object^ sender, System::EventArgs^ e) {
-}
 };
 }
