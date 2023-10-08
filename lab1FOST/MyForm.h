@@ -1,6 +1,7 @@
-#pragma once
+п»ї#pragma once
 #include <cmath>
 #include <stdlib.h>
+#using <System.Windows.Forms.DataVisualization.dll>
 
 #define PI 3.14159265
 
@@ -14,7 +15,7 @@ namespace lab1FOST {
     using namespace System::Drawing;
 
     /// <summary>
-    /// Сводка для MyForm
+    /// Г‘ГўГ®Г¤ГЄГ  Г¤Г«Гї MyForm
     /// </summary>
     public ref class MyForm : public System::Windows::Forms::Form
     {
@@ -23,13 +24,13 @@ namespace lab1FOST {
         {
             InitializeComponent();
             //
-            //TODO: добавьте код конструктора
+            //TODO: Г¤Г®ГЎГ ГўГјГІГҐ ГЄГ®Г¤ ГЄГ®Г­Г±ГІГ°ГіГЄГІГ®Г°Г 
             //
         }
 
     protected:
         /// <summary>
-        /// Освободить все используемые ресурсы.
+        /// ГЋГ±ГўГ®ГЎГ®Г¤ГЁГІГј ГўГ±ГҐ ГЁГ±ГЇГ®Г«ГјГ§ГіГҐГ¬Г»ГҐ Г°ГҐГ±ГіГ°Г±Г».
         /// </summary>
         ~MyForm()
         {
@@ -45,25 +46,22 @@ namespace lab1FOST {
 
     private: System::Windows::Forms::Label^ label2;
 
-
     private: System::Windows::Forms::Label^ label4;
     private: System::Windows::Forms::Button^ button2;
-
-
 
 
     protected:
 
     private:
         /// <summary>
-        /// Обязательная переменная конструктора.
+        /// ГЋГЎГїГ§Г ГІГҐГ«ГјГ­Г Гї ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г Гї ГЄГ®Г­Г±ГІГ°ГіГЄГІГ®Г°Г .
         /// </summary>
         System::ComponentModel::Container^ components;
 
 #pragma region Windows Form Designer generated code
         /// <summary>
-        /// Требуемый метод для поддержки конструктора — не изменяйте 
-        /// содержимое этого метода с помощью редактора кода.
+        /// Г’Г°ГҐГЎГіГҐГ¬Г»Г© Г¬ГҐГІГ®Г¤ Г¤Г«Гї ГЇГ®Г¤Г¤ГҐГ°Г¦ГЄГЁ ГЄГ®Г­Г±ГІГ°ГіГЄГІГ®Г°Г  вЂ” Г­ГҐ ГЁГ§Г¬ГҐГ­ГїГ©ГІГҐ 
+        /// Г±Г®Г¤ГҐГ°Г¦ГЁГ¬Г®ГҐ ГЅГІГ®ГЈГ® Г¬ГҐГІГ®Г¤Г  Г± ГЇГ®Г¬Г®Г№ГјГѕ Г°ГҐГ¤Г ГЄГІГ®Г°Г  ГЄГ®Г¤Г .
         /// </summary>
         void InitializeComponent(void)
         {
@@ -135,7 +133,7 @@ namespace lab1FOST {
             this->label2->Name = L"label2";
             this->label2->Size = System::Drawing::Size(55, 13);
             this->label2->TabIndex = 5;
-            this->label2->Text = L"Скорость";
+            this->label2->Text = L"Speed";
             this->label2->Click += gcnew System::EventHandler(this, &MyForm::label2_Click);
             // 
             // label4
@@ -178,17 +176,17 @@ namespace lab1FOST {
 #pragma endregion
     private: System::Void MyForm_Load(System::Object^ sender, System::EventArgs^ e) {
     }
-    private: System::Void drawGrafic(System::Windows::Forms::DataVisualization::Charting::Chart^ chart, System::String  ^chartArea, System::Collections::Generic::Dictionary <double, double>^ coordinates, System::Drawing::Color color, int width, System::String^ name, System::String^ legentText, double maxY, double maxX) {
+    private: System::Void drawGrafic(System::Windows::Forms::DataVisualization::Charting::Chart^ chart, System::String^ chartArea, System::Collections::Generic::Dictionary <double, double>^ coordinates, System::Drawing::Color color, int width, System::String^ name, System::String^ legentText, double maxY, double maxX) {
 
         System::Windows::Forms::DataVisualization::Charting::Series^ series = (gcnew System::Windows::Forms::DataVisualization::Charting::Series(name));
         System::Windows::Forms::DataVisualization::Charting::Legend^ legend = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
 
-        chart->ChartAreas[chartArea]->AxisY->Interval = System::Math::Round(maxY / 10);
+        chart->ChartAreas[chartArea]->AxisY->Interval = maxY / 10;
         chart->ChartAreas[chartArea]->AxisY->Minimum = 0;
-        chart->ChartAreas[chartArea]->AxisY->Maximum = maxY + 10;
-        chart->ChartAreas[chartArea]->AxisX->Interval = System::Math::Round(maxX / 10);
+        chart->ChartAreas[chartArea]->AxisY->Maximum = maxY + 0.1;
+        chart->ChartAreas[chartArea]->AxisX->Interval = maxX / 10;
         chart->ChartAreas[chartArea]->AxisX->Minimum = 0;
-        chart->ChartAreas[chartArea]->AxisX->Maximum = maxX + 10;
+        chart->ChartAreas[chartArea]->AxisX->Maximum = maxX + 0.1;
 
         legend->Name = name;
         chart->Legends->Add(legend);
@@ -206,7 +204,7 @@ namespace lab1FOST {
         chart->Series[name]->BorderWidth = width;
 
     }
-    private: System::Void buildSpeedToTime(double speed, double weight, double k, System::Drawing::Color color) {
+    private: System::Void buildSpeedToTime(double speed, double weight, double weightV, double k, System::Drawing::Color color) {
         using namespace System::Collections::Generic;
         Dictionary <double, double>^ f1 = gcnew Dictionary<double, double>();
         Dictionary <double, double>^ f2 = gcnew Dictionary<double, double>();
@@ -215,12 +213,12 @@ namespace lab1FOST {
         double T = 0.02;
         bool isEnd = false;
         double t = 0;
-        
+
         int sameSpeedCount = 0;
 
         f1->Add(t, speed);
         while (isEnd == false) {
-            double currSpeed = prevSpeed + (T / 2) * ((weight * 10 - k * prevSpeed) / weight + (weight * 10 - k * (prevSpeed + T * (weight * 10 - k * prevSpeed) / weight)) / weight);
+            double currSpeed = prevSpeed + (T / 2) * ((weightV * 10 - k * prevSpeed) / weight + (weightV * 10 - k * (prevSpeed + T * (weightV * 10 - k * prevSpeed) / weight)) / weight);
             double newHeight = currHeight + currSpeed * T;
             if (f1->ContainsKey(t) == false) {
                 f1->Add(t, currSpeed);
@@ -241,7 +239,7 @@ namespace lab1FOST {
 
         System::String^ nameS = System::String::Format(String::Concat(Convert::ToString(speed), ":", "speed"));
         System::String^ nameH = System::String::Format(String::Concat(Convert::ToString(speed), ":", "height"));
-        
+
         this->drawGrafic(this->chart1, "ChartArea1", f1, color, 2, nameS, nameS, prevSpeed, t);
         this->drawGrafic(this->chart1, "ChartArea2", f2, color, 2, nameH, nameH, currHeight, t);
     }
@@ -250,11 +248,12 @@ namespace lab1FOST {
         using namespace System::Windows::Forms::DataVisualization::Charting;
         double speed = Convert::ToDouble(this->maskedTextBox2->Text);
 
-        double MU = 0.5;
+        double MU = 530;
         double R = 0.1;
         double ELLIPSE_RO = 10500;
         double ELLIPSE_V = 4 / 3 * PI * pow(R, 3);
-        double VECTOR_WEIGHT = (ELLIPSE_RO - 710) * ELLIPSE_V;
+        double WEIGHT = ELLIPSE_V * ELLIPSE_RO;
+        double VECTOR_WEIGHT = (ELLIPSE_RO - 700) * ELLIPSE_V;
 
         double K = 6 * PI * MU * R;
 
@@ -263,7 +262,7 @@ namespace lab1FOST {
         int blue = rand() % 100 + 155;
         System::Drawing::Color color = Color::FromArgb(red, green, blue);
 
-        this->buildSpeedToTime(speed, VECTOR_WEIGHT, K, color);
+        this->buildSpeedToTime(speed, WEIGHT, VECTOR_WEIGHT, K, color);
     }
     private: System::Void label1_Click(System::Object^ sender, System::EventArgs^ e) {
     }
@@ -276,7 +275,7 @@ namespace lab1FOST {
     }
     private: System::Void maskedTextBox2_MaskInputRejected(System::Object^ sender, System::Windows::Forms::MaskInputRejectedEventArgs^ e) {
     }
-private: System::Void chart1_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-};
+    private: System::Void chart1_Click(System::Object^ sender, System::EventArgs^ e) {
+    }
+    };
 }
