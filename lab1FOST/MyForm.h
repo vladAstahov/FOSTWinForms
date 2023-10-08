@@ -48,6 +48,19 @@ namespace lab1FOST {
 
     private: System::Windows::Forms::Label^ label4;
     private: System::Windows::Forms::Button^ button2;
+    private: System::Windows::Forms::Label^ label1;
+    private: System::Windows::Forms::Label^ label3;
+    private: System::Windows::Forms::Label^ label5;
+    private: System::Windows::Forms::MaskedTextBox^ maskedTextBox1;
+    private: System::Windows::Forms::Label^ label6;
+    private: System::Windows::Forms::Label^ label7;
+    private: System::Windows::Forms::MaskedTextBox^ maskedTextBox3;
+    private: System::Windows::Forms::Label^ label8;
+    private: System::Windows::Forms::Label^ label9;
+    private: System::Windows::Forms::MaskedTextBox^ maskedTextBox4;
+    private: System::Windows::Forms::Label^ label10;
+    private: System::Windows::Forms::Label^ label11;
+    private: System::Windows::Forms::MaskedTextBox^ maskedTextBox5;
 
 
     protected:
@@ -65,42 +78,55 @@ namespace lab1FOST {
         /// </summary>
         void InitializeComponent(void)
         {
-            System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea3 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
-            System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea4 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
-            System::Windows::Forms::DataVisualization::Charting::Legend^ legend2 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
-            System::Windows::Forms::DataVisualization::Charting::Series^ series2 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
+            System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea5 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
+            System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea6 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
+            System::Windows::Forms::DataVisualization::Charting::Legend^ legend3 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
+            System::Windows::Forms::DataVisualization::Charting::Series^ series3 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
             this->chart1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Chart());
             this->button1 = (gcnew System::Windows::Forms::Button());
             this->maskedTextBox2 = (gcnew System::Windows::Forms::MaskedTextBox());
             this->label2 = (gcnew System::Windows::Forms::Label());
             this->label4 = (gcnew System::Windows::Forms::Label());
             this->button2 = (gcnew System::Windows::Forms::Button());
+            this->label1 = (gcnew System::Windows::Forms::Label());
+            this->label3 = (gcnew System::Windows::Forms::Label());
+            this->label5 = (gcnew System::Windows::Forms::Label());
+            this->maskedTextBox1 = (gcnew System::Windows::Forms::MaskedTextBox());
+            this->label6 = (gcnew System::Windows::Forms::Label());
+            this->label7 = (gcnew System::Windows::Forms::Label());
+            this->maskedTextBox3 = (gcnew System::Windows::Forms::MaskedTextBox());
+            this->label8 = (gcnew System::Windows::Forms::Label());
+            this->label9 = (gcnew System::Windows::Forms::Label());
+            this->maskedTextBox4 = (gcnew System::Windows::Forms::MaskedTextBox());
+            this->label10 = (gcnew System::Windows::Forms::Label());
+            this->label11 = (gcnew System::Windows::Forms::Label());
+            this->maskedTextBox5 = (gcnew System::Windows::Forms::MaskedTextBox());
             (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->chart1))->BeginInit();
             this->SuspendLayout();
             // 
             // chart1
             // 
-            chartArea3->Name = L"ChartArea1";
-            chartArea3->Position->Auto = false;
-            chartArea3->Position->Height = 100;
-            chartArea3->Position->Width = 50;
-            chartArea4->BackColor = System::Drawing::Color::White;
-            chartArea4->Name = L"ChartArea2";
-            chartArea4->Position->Auto = false;
-            chartArea4->Position->Height = 100;
-            chartArea4->Position->Width = 50;
-            chartArea4->Position->X = 50;
-            this->chart1->ChartAreas->Add(chartArea3);
-            this->chart1->ChartAreas->Add(chartArea4);
-            legend2->Name = L"Legend1";
-            this->chart1->Legends->Add(legend2);
+            chartArea5->Name = L"ChartArea1";
+            chartArea5->Position->Auto = false;
+            chartArea5->Position->Height = 100;
+            chartArea5->Position->Width = 50;
+            chartArea6->BackColor = System::Drawing::Color::White;
+            chartArea6->Name = L"ChartArea2";
+            chartArea6->Position->Auto = false;
+            chartArea6->Position->Height = 100;
+            chartArea6->Position->Width = 50;
+            chartArea6->Position->X = 50;
+            this->chart1->ChartAreas->Add(chartArea5);
+            this->chart1->ChartAreas->Add(chartArea6);
+            legend3->Name = L"Legend1";
+            this->chart1->Legends->Add(legend3);
             this->chart1->Location = System::Drawing::Point(26, 8);
             this->chart1->Name = L"chart1";
-            series2->ChartArea = L"ChartArea1";
-            series2->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Spline;
-            series2->Legend = L"Legend1";
-            series2->Name = L"Series1";
-            this->chart1->Series->Add(series2);
+            series3->ChartArea = L"ChartArea1";
+            series3->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Spline;
+            series3->Legend = L"Legend1";
+            series3->Name = L"Series1";
+            this->chart1->Series->Add(series3);
             this->chart1->Size = System::Drawing::Size(893, 307);
             this->chart1->TabIndex = 0;
             this->chart1->Text = L"chart1";
@@ -108,7 +134,7 @@ namespace lab1FOST {
             // 
             // button1
             // 
-            this->button1->Location = System::Drawing::Point(138, 340);
+            this->button1->Location = System::Drawing::Point(611, 340);
             this->button1->Name = L"button1";
             this->button1->Size = System::Drawing::Size(151, 34);
             this->button1->TabIndex = 1;
@@ -131,7 +157,7 @@ namespace lab1FOST {
             this->label2->AutoSize = true;
             this->label2->Location = System::Drawing::Point(29, 332);
             this->label2->Name = L"label2";
-            this->label2->Size = System::Drawing::Size(55, 13);
+            this->label2->Size = System::Drawing::Size(38, 13);
             this->label2->TabIndex = 5;
             this->label2->Text = L"Speed";
             this->label2->Click += gcnew System::EventHandler(this, &MyForm::label2_Click);
@@ -146,7 +172,7 @@ namespace lab1FOST {
             // 
             // button2
             // 
-            this->button2->Location = System::Drawing::Point(295, 340);
+            this->button2->Location = System::Drawing::Point(768, 340);
             this->button2->Name = L"button2";
             this->button2->Size = System::Drawing::Size(151, 34);
             this->button2->TabIndex = 9;
@@ -154,11 +180,145 @@ namespace lab1FOST {
             this->button2->UseVisualStyleBackColor = true;
             this->button2->Click += gcnew System::EventHandler(this, &MyForm::button2_Click);
             // 
+            // label1
+            // 
+            this->label1->AutoSize = true;
+            this->label1->Location = System::Drawing::Point(138, 351);
+            this->label1->Name = L"label1";
+            this->label1->Size = System::Drawing::Size(31, 13);
+            this->label1->TabIndex = 10;
+            this->label1->Text = L"км/ч";
+            this->label1->Click += gcnew System::EventHandler(this, &MyForm::label1_Click_1);
+            // 
+            // label3
+            // 
+            this->label3->AutoSize = true;
+            this->label3->Location = System::Drawing::Point(281, 351);
+            this->label3->Name = L"label3";
+            this->label3->Size = System::Drawing::Size(19, 13);
+            this->label3->TabIndex = 13;
+            this->label3->Text = L"kg";
+            // 
+            // label5
+            // 
+            this->label5->AutoSize = true;
+            this->label5->Location = System::Drawing::Point(172, 332);
+            this->label5->Name = L"label5";
+            this->label5->Size = System::Drawing::Size(21, 13);
+            this->label5->TabIndex = 12;
+            this->label5->Text = L"m0";
+            // 
+            // maskedTextBox1
+            // 
+            this->maskedTextBox1->Location = System::Drawing::Point(175, 348);
+            this->maskedTextBox1->Mask = L"00000";
+            this->maskedTextBox1->Name = L"maskedTextBox1";
+            this->maskedTextBox1->Size = System::Drawing::Size(100, 20);
+            this->maskedTextBox1->TabIndex = 11;
+            this->maskedTextBox1->ValidatingType = System::Int32::typeid;
+            // 
+            // label6
+            // 
+            this->label6->AutoSize = true;
+            this->label6->Location = System::Drawing::Point(424, 351);
+            this->label6->Name = L"label6";
+            this->label6->Size = System::Drawing::Size(19, 13);
+            this->label6->TabIndex = 16;
+            this->label6->Text = L"kg";
+            // 
+            // label7
+            // 
+            this->label7->AutoSize = true;
+            this->label7->Location = System::Drawing::Point(315, 332);
+            this->label7->Name = L"label7";
+            this->label7->Size = System::Drawing::Size(39, 13);
+            this->label7->TabIndex = 15;
+            this->label7->Text = L"m_end";
+            // 
+            // maskedTextBox3
+            // 
+            this->maskedTextBox3->Location = System::Drawing::Point(318, 348);
+            this->maskedTextBox3->Mask = L"00000";
+            this->maskedTextBox3->Name = L"maskedTextBox3";
+            this->maskedTextBox3->Size = System::Drawing::Size(100, 20);
+            this->maskedTextBox3->TabIndex = 14;
+            this->maskedTextBox3->ValidatingType = System::Int32::typeid;
+            // 
+            // label8
+            // 
+            this->label8->AutoSize = true;
+            this->label8->Location = System::Drawing::Point(555, 351);
+            this->label8->Name = L"label8";
+            this->label8->Size = System::Drawing::Size(30, 13);
+            this->label8->TabIndex = 19;
+            this->label8->Text = L"kg/h";
+            this->label8->Click += gcnew System::EventHandler(this, &MyForm::label8_Click);
+            // 
+            // label9
+            // 
+            this->label9->AutoSize = true;
+            this->label9->Location = System::Drawing::Point(446, 332);
+            this->label9->Name = L"label9";
+            this->label9->Size = System::Drawing::Size(24, 13);
+            this->label9->TabIndex = 18;
+            this->label9->Text = L"fuel";
+            this->label9->Click += gcnew System::EventHandler(this, &MyForm::label9_Click);
+            // 
+            // maskedTextBox4
+            // 
+            this->maskedTextBox4->Location = System::Drawing::Point(449, 348);
+            this->maskedTextBox4->Mask = L"00000";
+            this->maskedTextBox4->Name = L"maskedTextBox4";
+            this->maskedTextBox4->Size = System::Drawing::Size(100, 20);
+            this->maskedTextBox4->TabIndex = 17;
+            this->maskedTextBox4->ValidatingType = System::Int32::typeid;
+            this->maskedTextBox4->MaskInputRejected += gcnew System::Windows::Forms::MaskInputRejectedEventHandler(this, &MyForm::maskedTextBox4_MaskInputRejected);
+            // 
+            // label10
+            // 
+            this->label10->AutoSize = true;
+            this->label10->Location = System::Drawing::Point(138, 402);
+            this->label10->Name = L"label10";
+            this->label10->Size = System::Drawing::Size(30, 13);
+            this->label10->TabIndex = 22;
+            this->label10->Text = L"H";
+            // 
+            // label11
+            // 
+            this->label11->AutoSize = true;
+            this->label11->Location = System::Drawing::Point(29, 383);
+            this->label11->Name = L"label11";
+            this->label11->Size = System::Drawing::Size(24, 13);
+            this->label11->TabIndex = 21;
+            this->label11->Text = L"F_t";
+            // 
+            // maskedTextBox5
+            // 
+            this->maskedTextBox5->Location = System::Drawing::Point(32, 399);
+            this->maskedTextBox5->Mask = L"00000";
+            this->maskedTextBox5->Name = L"maskedTextBox5";
+            this->maskedTextBox5->Size = System::Drawing::Size(100, 20);
+            this->maskedTextBox5->TabIndex = 20;
+            this->maskedTextBox5->ValidatingType = System::Int32::typeid;
+            // 
             // MyForm
             // 
             this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
             this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-            this->ClientSize = System::Drawing::Size(931, 386);
+            this->ClientSize = System::Drawing::Size(931, 440);
+            this->Controls->Add(this->label10);
+            this->Controls->Add(this->label11);
+            this->Controls->Add(this->maskedTextBox5);
+            this->Controls->Add(this->label8);
+            this->Controls->Add(this->label9);
+            this->Controls->Add(this->maskedTextBox4);
+            this->Controls->Add(this->label6);
+            this->Controls->Add(this->label7);
+            this->Controls->Add(this->maskedTextBox3);
+            this->Controls->Add(this->label3);
+            this->Controls->Add(this->label5);
+            this->Controls->Add(this->maskedTextBox1);
+            this->Controls->Add(this->label1);
             this->Controls->Add(this->button2);
             this->Controls->Add(this->label4);
             this->Controls->Add(this->label2);
@@ -204,41 +364,57 @@ namespace lab1FOST {
         chart->Series[name]->BorderWidth = width;
 
     }
-    private: System::Void buildSpeedToTime(double speed, double weight, double weightV, double k, System::Drawing::Color color) {
+    private: double TimeFunction(double T, double k) {
+        if (T >= 1) {
+            return 1 - (1 - k) * T;
+        }
+
+        return k;
+    }
+    private: System::Void buildSpeedToTime(double V, double _speed, double _time, double _h, double F_t, double m_0, double m_end, System::Drawing::Color color) {
         using namespace System::Collections::Generic;
         Dictionary <double, double>^ f1 = gcnew Dictionary<double, double>();
         Dictionary <double, double>^ f2 = gcnew Dictionary<double, double>();
-        double prevSpeed = speed;
+        double prevSpeed = V;
         double currHeight = 0;
-        double T = 0.02;
+        double timeStep = 0.02;
         bool isEnd = false;
         double t = 0;
 
-        int sameSpeedCount = 0;
+        double iterCounter = 0;
 
-        f1->Add(t, speed);
+        double a = (F_t * _time) / (m_0 * _speed);
+        double b = _time * 10 / _speed;
+        double p = 0.5 * 0.3 * 122.5 * 15 * _speed * _time / m_0;
+        double e = (_speed * _time) / _h;
+        double k = m_end / m_0;
+
+        f1->Add(t, V);
         while (isEnd == false) {
-            double currSpeed = prevSpeed + (T / 2) * ((weightV * 10 - k * prevSpeed) / weight + (weightV * 10 - k * (prevSpeed + T * (weightV * 10 - k * prevSpeed) / weight)) / weight);
-            double newHeight = currHeight + currSpeed * T;
+            double T = t / _time;
+            double H = currHeight / _h;
+            double F_t = this->TimeFunction(T, k);
+
+            double newSpeed = 1 / F_t * (a - b * F_t - p * exp(-2.3026 * H) * V * V);
+            double DNewSpeed = prevSpeed + t * newSpeed;
+
+            double currSpeed = prevSpeed + (t / 2) * (newSpeed + DNewSpeed);
+            double newHeight = currHeight + e * V;
             if (f1->ContainsKey(t) == false) {
-                f1->Add(t, currSpeed);
+                f1->Add(T, currSpeed);
             }
             if (f2->ContainsKey(t) == false) {
-                f2->Add(t, newHeight);
-            }
-            if (t > 1) {
-                if (currSpeed - prevSpeed < 0.0001) {
-                    sameSpeedCount++;
-                }
-                isEnd = sameSpeedCount > 3;
+                f2->Add(T, newHeight);
             }
             prevSpeed = currSpeed;
             currHeight = newHeight;
-            t += T;
+            t += timeStep;
+            iterCounter++;
+            isEnd = iterCounter > 700;
         }
 
-        System::String^ nameS = System::String::Format(String::Concat(Convert::ToString(speed), ":", "speed"));
-        System::String^ nameH = System::String::Format(String::Concat(Convert::ToString(speed), ":", "height"));
+        System::String^ nameS = System::String::Format(String::Concat(Convert::ToString(V), ":", "speed"));
+        System::String^ nameH = System::String::Format(String::Concat(Convert::ToString(V), ":", "height"));
 
         this->drawGrafic(this->chart1, "ChartArea1", f1, color, 2, nameS, nameS, prevSpeed, t);
         this->drawGrafic(this->chart1, "ChartArea2", f2, color, 2, nameH, nameH, currHeight, t);
@@ -247,22 +423,23 @@ namespace lab1FOST {
         using namespace System::Drawing::Drawing2D;
         using namespace System::Windows::Forms::DataVisualization::Charting;
         double speed = Convert::ToDouble(this->maskedTextBox2->Text);
+        double weight_0 = Convert::ToDouble(this->maskedTextBox1->Text);
+        double weight_end = Convert::ToDouble(this->maskedTextBox3->Text);
+        double fuel_per_hour = Convert::ToDouble(this->maskedTextBox4->Text);
+        double F_t = Convert::ToDouble(this->maskedTextBox5->Text);
 
-        double MU = 530;
-        double R = 0.1;
-        double ELLIPSE_RO = 10500;
-        double ELLIPSE_V = 4 / 3 * PI * pow(R, 3);
-        double WEIGHT = ELLIPSE_V * ELLIPSE_RO;
-        double VECTOR_WEIGHT = (ELLIPSE_RO - 700) * ELLIPSE_V;
+        double _speed = 7.8; // km/h
+        double _time = (weight_0 - weight_end) / fuel_per_hour;
+        double _h = 17;
 
-        double K = 6 * PI * MU * R;
+        double V = speed / _speed;
 
         int red = rand() % 100 + 155;
         int green = rand() % 100 + 155;
         int blue = rand() % 100 + 155;
         System::Drawing::Color color = Color::FromArgb(red, green, blue);
 
-        this->buildSpeedToTime(speed, WEIGHT, VECTOR_WEIGHT, K, color);
+        this->buildSpeedToTime(V, _speed, _time, _h, F_t, weight_0, weight_end, color);
     }
     private: System::Void label1_Click(System::Object^ sender, System::EventArgs^ e) {
     }
@@ -277,5 +454,13 @@ namespace lab1FOST {
     }
     private: System::Void chart1_Click(System::Object^ sender, System::EventArgs^ e) {
     }
-    };
+    private: System::Void label1_Click_1(System::Object^ sender, System::EventArgs^ e) {
+    }
+private: System::Void maskedTextBox4_MaskInputRejected(System::Object^ sender, System::Windows::Forms::MaskInputRejectedEventArgs^ e) {
+}
+private: System::Void label9_Click(System::Object^ sender, System::EventArgs^ e) {
+}
+private: System::Void label8_Click(System::Object^ sender, System::EventArgs^ e) {
+}
+};
 }
