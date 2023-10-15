@@ -365,7 +365,7 @@ namespace lab1FOST {
 
     }
     private: double TimeFunction(double T, double k) {
-        if (T >= 1) {
+        if (T <= 1) {
             return 1 - (1 - k) * T;
         }
 
@@ -377,7 +377,7 @@ namespace lab1FOST {
         Dictionary <double, double>^ f2 = gcnew Dictionary<double, double>();
         double prevSpeed = V;
         double currHeight = 0;
-        double timeStep = 0.02;
+        double timeStep = 0.2;
         bool isEnd = false;
         double t = 0;
 
@@ -385,7 +385,7 @@ namespace lab1FOST {
 
         double a = (F_t * _time) / (m_0 * _speed);
         double b = _time * 10 / _speed;
-        double p = 0.5 * 0.3 * 122.5 * 15 * _speed * _time / m_0;
+        double p = (0.5 * 0.3 * 1.225 * 15 * _speed * _time) / m_0;
         double e = (_speed * _time) / _h;
         double k = m_end / m_0;
 
@@ -393,24 +393,22 @@ namespace lab1FOST {
         while (isEnd == false) {
             double T = t / _time;
             double H = currHeight / _h;
-            double F_t = this->TimeFunction(T, k);
+            double F_T = this->TimeFunction(T, k);
 
-            double newSpeed = 1 / F_t * (a - b * F_t - p * exp(-2.3026 * H) * V * V);
-            double DNewSpeed = prevSpeed + t * newSpeed;
+            double speedStar = prevSpeed + timeStep * (1 / F_T) * (a - b * F_T - p * exp(-2.3026 * H) * prevSpeed * prevSpeed);
+            double speedNew = prevSpeed + timeStep * 0.5 * ((1 / F_T) * (1 / F_T) * (a - b * F_T - p * exp(-2.3026 * H) * prevSpeed * prevSpeed) + (1 / F_T) * (a - b * F_T - p * exp(-2.3026 * H) * speedStar * speedStar));
 
-            double currSpeed = prevSpeed + (t / 2) * (newSpeed + DNewSpeed);
-            double newHeight = currHeight + e * V;
+            currHeight += speedNew * timeStep * e;
             if (f1->ContainsKey(t) == false) {
-                f1->Add(T, currSpeed);
+                f1->Add(t, speedNew);
             }
             if (f2->ContainsKey(t) == false) {
-                f2->Add(T, newHeight);
+                f2->Add(t, currHeight);
             }
-            prevSpeed = currSpeed;
-            currHeight = newHeight;
+            prevSpeed = speedNew;
             t += timeStep;
             iterCounter++;
-            isEnd = iterCounter > 700;
+            isEnd = iterCounter > 50;
         }
 
         System::String^ nameS = System::String::Format(String::Concat(Convert::ToString(V), ":", "speed"));
@@ -422,15 +420,23 @@ namespace lab1FOST {
     private: System::Void button1_Click_1(System::Object^ sender, System::EventArgs^ e) {
         using namespace System::Drawing::Drawing2D;
         using namespace System::Windows::Forms::DataVisualization::Charting;
+        /*
         double speed = Convert::ToDouble(this->maskedTextBox2->Text);
         double weight_0 = Convert::ToDouble(this->maskedTextBox1->Text);
         double weight_end = Convert::ToDouble(this->maskedTextBox3->Text);
         double fuel_per_hour = Convert::ToDouble(this->maskedTextBox4->Text);
         double F_t = Convert::ToDouble(this->maskedTextBox5->Text);
+        */
 
-        double _speed = 7.8; // km/h
+        double speed = 0;
+        double fuel_per_hour = 1297;
+        double weight_0 = 280000;
+        double weight_end = 47300;
+        double F_t = 13002000;
+
+        double _speed = 7.8 * 1000; // km/h
         double _time = (weight_0 - weight_end) / fuel_per_hour;
-        double _h = 17;
+        double _h = 17 * 1000;
 
         double V = speed / _speed;
 
