@@ -212,11 +212,11 @@ namespace lab1FOST {
         System::Windows::Forms::DataVisualization::Charting::Series^ series = (gcnew System::Windows::Forms::DataVisualization::Charting::Series(name));
         System::Windows::Forms::DataVisualization::Charting::Legend^ legend = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
 
-        this->chart1->ChartAreas["ChartArea1"]->AxisY->Interval = 10;
+        this->chart1->ChartAreas["ChartArea1"]->AxisY->Interval = max / 10;
         this->chart1->ChartAreas["ChartArea1"]->AxisY2->Minimum = 0;
         this->chart1->ChartAreas["ChartArea1"]->AxisY->Minimum = -max;
         this->chart1->ChartAreas["ChartArea1"]->AxisY->Maximum = max;
-        this->chart1->ChartAreas["ChartArea1"]->AxisX->Interval = 10;
+        this->chart1->ChartAreas["ChartArea1"]->AxisX->Interval = max / 10;
         this->chart1->ChartAreas["ChartArea1"]->AxisX->Minimum = -max;
         this->chart1->ChartAreas["ChartArea1"]->AxisX2->Minimum = -max;
         this->chart1->ChartAreas["ChartArea1"]->AxisX->Maximum = max;
@@ -246,48 +246,38 @@ namespace lab1FOST {
         using namespace System::Windows::Forms::DataVisualization::Charting;
         Dictionary <double, double>^ f1 = gcnew Dictionary<double, double>();
 
-        double M = 5.98 * 1024; // kg
+        double M = 5.972 * pow(10, 24); // kg
         double R = 6370; // km
         double G = 6.67 * pow(10, -11);
         double h = 380 * 1000; // km
 
-        double _x = R + h;
-        double _t = 1 / sqrt((G * M) / pow(_x, 3));
 
-        double x_0 = R + h; // from keyboard
-        double _v = sqrt(G * M / _x);
-        double v_0 = 20000 * _v; // from keyboard
+        double x_0 = 6.378136 * pow(10, 6); // from keyboard
+        double v_0 = 7900.0; // from keyboard
 
-        double X = x_0 / _x;
         double y = 0;
         double v_x = 0;
         double v_y = v_0;
 
+        double X0 = x_0, Y0 = 0;
+
         bool isEnd = false;
-        double timeStep = 0.2;
+        double timeStep = 10;
         double t = timeStep;
-        int counter = 0;
+        int N = 0;
 
-        while (isEnd == false) {
+        while (N <= 600) {
+            double r = sqrt(X0 * X0 + Y0 * Y0);
+            v_x = v_x + timeStep * (-G * M * X0 / pow(r, 3));
+            v_y = v_y + timeStep * (-G * M * Y0 / pow(r, 3));
 
-            double a_x = (-X / (sqrt(pow((X * X + y * y), 3))));
-            double a_y = (-y / (sqrt(pow((X * X + y * y), 3))));
+            X0 += v_x * timeStep;
+            Y0 += v_y * timeStep;
 
-            double v_xn = v_x + timeStep * a_x;
-            double v_yn = v_y + timeStep * a_y;
-
-            X += v_xn * t;
-            y += v_yn * t;
-
-            f1->Add(X, y);
+            f1->Add(X0 / x_0, Y0 / x_0);
 
             t += timeStep;
-            v_x = v_xn;
-            v_y = v_yn;
-            counter++;
-            if (counter > 500) {
-                isEnd = true;
-            }
+            N++;
         }
 
         int red = rand() % 100 + 155;
@@ -295,7 +285,7 @@ namespace lab1FOST {
         int blue = rand() % 100 + 155;
         System::Drawing::Color color = Color::FromArgb(red, green, blue);
 
-        drawGrafic(f1, color, 2, "name", "name", -100);
+        drawGrafic(f1, color, 2, "name", "name", 2);
     }
     private: System::Void label1_Click(System::Object^ sender, System::EventArgs^ e) {
     }
