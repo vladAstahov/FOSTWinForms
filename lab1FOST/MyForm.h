@@ -212,13 +212,13 @@ namespace lab1FOST {
         System::Windows::Forms::DataVisualization::Charting::Series^ series = (gcnew System::Windows::Forms::DataVisualization::Charting::Series(name));
         System::Windows::Forms::DataVisualization::Charting::Legend^ legend = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
 
-        this->chart1->ChartAreas["ChartArea1"]->AxisY->Interval = 1;
+        this->chart1->ChartAreas["ChartArea1"]->AxisY->Interval = 10;
         this->chart1->ChartAreas["ChartArea1"]->AxisY2->Minimum = 0;
-        this->chart1->ChartAreas["ChartArea1"]->AxisY->Minimum = 0;
+        this->chart1->ChartAreas["ChartArea1"]->AxisY->Minimum = -max;
         this->chart1->ChartAreas["ChartArea1"]->AxisY->Maximum = max;
-        this->chart1->ChartAreas["ChartArea1"]->AxisX->Interval = 1;
-        this->chart1->ChartAreas["ChartArea1"]->AxisX->Minimum = 0;
-        this->chart1->ChartAreas["ChartArea1"]->AxisX2->Minimum = 0;
+        this->chart1->ChartAreas["ChartArea1"]->AxisX->Interval = 10;
+        this->chart1->ChartAreas["ChartArea1"]->AxisX->Minimum = -max;
+        this->chart1->ChartAreas["ChartArea1"]->AxisX2->Minimum = -max;
         this->chart1->ChartAreas["ChartArea1"]->AxisX->Maximum = max;
         this->chart1->ChartAreas["ChartArea1"]->Position->Width = 100;
         this->chart1->ChartAreas["ChartArea1"]->Position->Height = 100;
@@ -245,52 +245,57 @@ namespace lab1FOST {
         using namespace System::Drawing::Drawing2D;
         using namespace System::Windows::Forms::DataVisualization::Charting;
         Dictionary <double, double>^ f1 = gcnew Dictionary<double, double>();
-        int speed = Convert::ToInt32(this->maskedTextBox2->Text);
-        double k = Convert::ToDouble(this->maskedTextBox3->Text);
-        int angle = Convert::ToInt32(this->maskedTextBox1->Text);
-        double angleRad = angle * PI / 180;
-        bool isFall = false;
-        double max = 20;
-        System::String^ name;
 
-        int weight = 1;
+        double M = 5.98 * 1024; // kg
+        double R = 6370; // km
+        double G = 6.67 * pow(10, -11);
+        double h = 380 * 1000; // km
 
-        double t = 0;
-        double speedX = speed * cos(angleRad);
-        double speedY = speed * sin(angleRad);
+        double _x = R + h;
+        double _t = 1 / sqrt((G * M) / pow(_x, 3));
 
-        double prevX = 0;
-        double prevY = 0;
-        double prevSpeedX = speedX;
-        double prevSpeedY = speedY;
-        f1->Add(0, 0);
+        double x_0 = R + h; // from keyboard
+        double _v = sqrt(G * M / _x);
+        double v_0 = 20000 * _v; // from keyboard
 
-        while (isFall == false) {
-            double currentSpeedX = prevSpeedX - t * (k * prevSpeedX * prevSpeedX / 10);
-            double currentSpeedY = prevSpeedY - t * (10 + k * prevSpeedY * prevSpeedY / 10);
-            double x = prevX + currentSpeedX * t;
-            double y = prevY + currentSpeedY * t;
+        double X = x_0 / _x;
+        double y = 0;
+        double v_x = 0;
+        double v_y = v_0;
 
-            if (f1->ContainsKey(x) == false) {
-                f1->Add(x, y);
+        bool isEnd = false;
+        double timeStep = 0.2;
+        double t = timeStep;
+        int counter = 0;
+
+        while (isEnd == false) {
+
+            double a_x = (-X / (sqrt(pow((X * X + y * y), 3))));
+            double a_y = (-y / (sqrt(pow((X * X + y * y), 3))));
+
+            double v_xn = v_x + timeStep * a_x;
+            double v_yn = v_y + timeStep * a_y;
+
+            X += v_xn * t;
+            y += v_yn * t;
+
+            f1->Add(X, y);
+
+            t += timeStep;
+            v_x = v_xn;
+            v_y = v_yn;
+            counter++;
+            if (counter > 500) {
+                isEnd = true;
             }
-            if (t > 1) {
-                isFall = y < 0;
-            }
-            prevX = x;
-            prevY = y;
-            prevSpeedX = currentSpeedX;
-            prevSpeedY = currentSpeedY;
-            t += 0.01;
         }
-        name = System::String::Format(String::Concat(Convert::ToString(speed), ":", Convert::ToString(angle), ":", Convert::ToString(k)));
 
         int red = rand() % 100 + 155;
         int green = rand() % 100 + 155;
         int blue = rand() % 100 + 155;
         System::Drawing::Color color = Color::FromArgb(red, green, blue);
 
-        drawGrafic(f1, color, 2, name, name, max);
+        drawGrafic(f1, color, 2, "name", "name", -100);
     }
     private: System::Void label1_Click(System::Object^ sender, System::EventArgs^ e) {
     }
