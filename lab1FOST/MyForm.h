@@ -240,43 +240,35 @@ namespace lab1FOST {
         this->chart1->Series[name]->BorderWidth = width;
 
     }
-    private: System::Void button1_Click_1(System::Object^ sender, System::EventArgs^ e) {
+    private: System::Void buildGrafic(int Z, double M) {
         using namespace System::Collections::Generic;
         using namespace System::Drawing::Drawing2D;
         using namespace System::Windows::Forms::DataVisualization::Charting;
         Dictionary <double, double>^ f1 = gcnew Dictionary<double, double>();
 
-        double M = 5.972 * pow(10, 24); // kg
-        double R = 6370; // km
-        double G = 6.67 * pow(10, -11);
-        double h = 380 * 1000; // km
+        // long double M = 15.9 * pow(10, -27); // H weight
+        double electron = 1.6021892 * pow(10, -19);
+        double k = 8987551777;
 
+        int N = 1;
 
-        double x_0 = 6.378136 * pow(10, 6); // from keyboard
-        double v_0 = 7900.0; // from keyboard
+        double V_x = 0.2;
+        double V_y = 0;
+        double time_step = 0.001;
 
-        double y = 0;
-        double v_x = 0;
-        double v_y = v_0;
+        double x = -15;
+        double y = 2;
 
-        double X0 = x_0, Y0 = 0;
+        f1->Add(x, y);
 
-        bool isEnd = false;
-        double timeStep = 10;
-        double t = timeStep;
-        int N = 0;
+        while (N < 1000) {
+            V_x = V_x + (2 * k * Z * electron * electron) / M * x / pow((x * x + y * y), 3 / 2) * time_step;
+            V_y = V_y + (2 * k * Z * electron * electron) / M * y / pow((x * x + y * y), 3 / 2) * time_step;
 
-        while (N <= 600) {
-            double r = sqrt(X0 * X0 + Y0 * Y0);
-            v_x = v_x + timeStep * (-G * M * X0 / pow(r, 3));
-            v_y = v_y + timeStep * (-G * M * Y0 / pow(r, 3));
+            x = x + V_x * time_step;
+            y = y + V_y * time_step;
 
-            X0 += v_x * timeStep;
-            Y0 += v_y * timeStep;
-
-            f1->Add(X0 / x_0, Y0 / x_0);
-
-            t += timeStep;
+            f1->Add(x, y);
             N++;
         }
 
@@ -285,7 +277,75 @@ namespace lab1FOST {
         int blue = rand() % 100 + 155;
         System::Drawing::Color color = Color::FromArgb(red, green, blue);
 
-        drawGrafic(f1, color, 2, "name", "name", 2);
+        drawGrafic(f1, color, 2, "name", "name", 20);
+    }
+    private: System::Void button1_Click_1(System::Object^ sender, System::EventArgs^ e) {
+        using namespace System::Collections::Generic;
+        using namespace System::Drawing::Drawing2D;
+        using namespace System::Windows::Forms::DataVisualization::Charting;
+        Dictionary <double, double>^ f1 = gcnew Dictionary<double, double>();
+        Dictionary <double, double>^ f2 = gcnew Dictionary<double, double>();
+
+        int Z = 8; // H
+        long double M = 15.9 * pow(10, -27); // H weight
+        double electron = 1.6021892 * pow(10, -19);
+        double k = 8987551777;
+
+        int N = 1;
+
+        double V0x = 0.2;
+        double V0y= 0;
+        double x0 = -15;
+        double y0 = 2;
+        double time_step = 0.1;
+
+        double VHalfX = V0x + ((2 * k * Z * electron * electron) / M) * (x0 / pow((x0 * x0 + y0 * y0), 1.5)) * time_step / 2;
+        double VHalfY = V0x + ((2 * k * Z * electron * electron) / M) * (y0 / pow((x0 * x0 + y0 * y0), 1.5)) * time_step / 2;
+
+        double x1 = -15;
+        double y1 = 10;
+
+        double V1x = 0.2;
+        double V1y = 0;
+        double VHalfX1 = V1x + ((2 * k * Z * electron * electron) / M) * (x1 / pow((x1 * x1 + y1 * y1), 1.5)) * time_step / 2;
+        double VHalfY1 = V1y + ((2 * k * Z * electron * electron) / M) * (y1 / pow((x1 * x1 + y1 * y1), 1.5)) * time_step / 2;
+
+        int X_MAX = 20;
+        int X_MIN = -20;
+        int Y_MAX = 60;
+        int Y_MIN = -3;
+
+        while (x0 < X_MAX && x0 > X_MIN && y0 > Y_MIN && y0 < Y_MAX) {
+            V0x = VHalfX + ((2 * k * Z * electron * electron) / M) * (x0 / pow(x0 * x0 + y0 * y0, 1.5)) * time_step;
+            V0y = VHalfY + ((2 * k * Z * electron * electron) / M) * (y0 / pow(x0 * x0 + y0 * y0, 1.5)) * time_step;
+            x0 = x0 + V0x * time_step;
+            VHalfY = V0y;
+            y0 = y0 + V0y * time_step;
+            VHalfX = V0x;
+
+            V1x = VHalfX1 + ((2 * k * Z * electron * electron) / M) * (x1 / pow((x1 * x1 + y1 * y1), 1.5)) * time_step;
+            V1y = VHalfY1 + ((2 * k * Z * electron * electron) / M) * (y1 / pow((x1 * x1 + y1 * y1), 1.5)) * time_step;
+            x1 = x1 + V1x * time_step;
+            y1 = y1 + V1y * time_step;
+            VHalfX1 = V1x;
+            VHalfY1 = V1y;
+
+            f1->Add(x0, y0);
+            f2->Add(x1, y1);
+        }
+
+        int red = rand() % 100 + 155;
+        int green = rand() % 100 + 155;
+        int blue = rand() % 100 + 155;
+        System::Drawing::Color color = Color::FromArgb(red, green, blue);
+
+        int red1 = rand() % 100 + 155;
+        int green1 = rand() % 100 + 155;
+        int blue1 = rand() % 100 + 155;
+        System::Drawing::Color color1 = Color::FromArgb(red1, green1, blue1);
+
+        drawGrafic(f1, color, 2, "first", "first", Y_MAX + 10);
+        drawGrafic(f2, color1, 2, "second", "second", Y_MAX + 10);
     }
     private: System::Void label1_Click(System::Object^ sender, System::EventArgs^ e) {
     }
